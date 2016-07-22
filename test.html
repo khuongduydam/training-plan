@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+Result: <span></span>
+<div>One</div>
+<div>Two</div>
+<div>Three</div>
+<script>
+function name(unit){
+	var array = [];
+	for(var i = 0; i < unit.length; i++)
+	{
+		array.unshift(unit[i].innerHTML); // get data inside element, not the element
+	}
+	$('span').text(array.join(" "));
+}
+name($('div').toArray()); // this will create a new array contain all element <div> -- [div1,div2,div3,...]
+</script>
+</body>
+</html>
