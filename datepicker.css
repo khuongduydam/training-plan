@@ -179,6 +179,7 @@
   cursor: pointer;
   width: 16px;
   height: 16px;
+<<<<<<< HEAD
 }
 
 .well{
@@ -193,3 +194,6 @@ input[name=input1], input[name=input2]{
 input[name=input1], input[name=dpd1]{
   margin-right: 60px;
 }
+=======
+}
+>>>>>>> 036f9796baa528323ae392f25a11031dc3ddf3b0
