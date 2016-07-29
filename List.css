@@ -5,3 +5,6 @@ pre{
 h2{
   margin: -10px 0;
 }
+h2, li{
+  cursor: pointer;
+}

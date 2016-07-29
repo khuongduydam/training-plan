@@ -12,7 +12,7 @@
   <div class="row">
     <div class="col-md-4">
       <section class="panel well">
-        <h2>List 1</h2>
+        <h2 name="list1">List 1</h2>
         <ul>
           <pre><li>Task 1</li></pre>
           <pre><li>Task 2</li></pre>
@@ -42,5 +42,36 @@
     </div>
   </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="modal">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Content</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" name="list1" class="form-control">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="btn1">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var data1 = $('h2[name=list1]').text();
+  $('h2[name=list1]').click(function(){
+    $('#modal').modal("show");
+  });
+    $('#modal').on('show.bs.modal',function(){
+      $('input[name=list1]').attr({value: data1});
+      $('#btn1').click(function(){
+        data1 = $('input[name=list1]').val();
+        $('h2[name=list1]').text(data1);
+        $('#modal').modal('hide');
+      });
+    });
+</script>
 </body>
 </html>
