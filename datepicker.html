@@ -15,11 +15,11 @@
     <form class="form-inline">
       <div class="form-group">
         <label>Input 1</label>
-        <input type="text" name="input1" class="form-control">
+        <input type="text" name="input1" class="form-control" id="val1">
       </div>
       <div class="form-group">
         <label>Input 2</label>
-        <input type="text" name="input2" class="form-control">
+        <input type="text" name="input2" class="form-control" id=val2>
       </div>
     </form>
     <br />
@@ -38,7 +38,7 @@
 
 <script>
   var nowTemp = new Date();
-  var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(),0,0,0,0);
+  var now = new Date(nowTemp.getUTCFullYear(), nowTemp.getUTCMonth(), nowTemp.getUTCDate());
   var dpd1 = $('#dpd1').datepicker({
     onRender: function(date){
       return date.valueOf() < now.valueOf() ? 'disabled' : '';
@@ -46,7 +46,7 @@
   }).on('changeDate', function(ev){
     if(ev.date.valueOf() > dpd2.date.valueOf()){
       var newDate = new Date(ev.date)
-      newDate.setDate(newDate.getDate() + 1);
+      newDate.setHours((newDate.getHours() + nowTemp.getHours()) - ($('input[name=input1]').val() - $('input[name=input2]').val()))
       dpd2.setValue(newDate);
     }
     dpd1.hide();
@@ -57,9 +57,14 @@
       return date.valueOf() <= dpd1.date.valueOf() ? 'disabled' : '';
     }
   }).on('changeDate', function(ev){
+    if(ev.date.valueOf() > dpd1.date.valueOf()){
+      var newDate = new Date(ev.date)
+      newDate.setHours((newDate.getHours() + nowTemp.getHours()) - ($('input[name=input2]').val() - $('input[name=input1]').val()))
+      dpd1.setValue(newDate);
+    }
     dpd2.hide();
+    $('#dpd1').focus();
   }).data('datepicker');
-
 </script>
 </body>
 </html>
