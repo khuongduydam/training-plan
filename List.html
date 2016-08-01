@@ -12,11 +12,11 @@
   <div class="row">
     <div class="col-md-4">
       <section class="panel well">
-        <h2 name="list1">List 1</h2>
+        <h2>List 1</h2>
         <ul>
-          <pre><li>Task 1</li></pre>
-          <pre><li>Task 2</li></pre>
-          <pre><li>Task 3</li></pre>
+          <pre class='list1-item'><li place="1">Task 1</li></pre>
+          <pre class='list1-item'><li place="2">Task 2</li></pre>
+          <pre class='list1-item'><li place="3">Task 3</li></pre>
         </ul>
       </section>
       </div>
@@ -24,9 +24,9 @@
         <section class="panel well">
           <h2>List 2</h2>
           <ul>
-            <pre><li>Task 4</li></pre>
-            <pre><li>Task 5</li></pre>
-            <pre><li>Task 6</li></pre>
+            <pre class="list2-item"><li place="1">Task 4</li ></pre>
+            <pre class="list2-item"><li place="2">Task 5</li ></pre>
+            <pre class="list2-item"><li place="3">Task 6</li ></pre>
           </ul>
         </section>
     </div>
@@ -34,9 +34,9 @@
         <section class="panel well">
           <h2>List 3</h2>
           <ul>
-            <pre><li>Task 7</li></pre>
-            <pre><li>Task 8</li></pre>
-            <pre><li>Task 9</li></pre>
+            <pre class="list3-item"><li place="1">Task 7</li></pre>
+            <pre class="list3-item"><li place="2">Task 8</li></pre>
+            <pre class="list3-item"><li place="3">Task 9</li></pre>
           </ul>
         </section>
     </div>
@@ -51,7 +51,12 @@
         <h4 class="modal-title">Edit Content</h4>
       </div>
       <div class="modal-body">
-        <input type="text" name="list1" class="form-control">
+        <label>Content</label>
+        <input type="text" name="val" class="form-control"><br />
+        <label>Current Position</label>
+        <input type="text" name="position" class="form-control" placeholder="Postition"><br />
+        <label>List</label>
+        <input type="text" name="list-item" class="form-control">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" id="btn1">Save</button>
@@ -59,19 +64,33 @@
     </div>
   </div>
 </div>
+
 <script>
-  var data1 = $('h2[name=list1]').text();
-  $('h2[name=list1]').click(function(){
-    $('#modal').modal("show");
-  });
+$(function(){
+  var self, data;
+  // click into every elements
+  $('h2,li').click(function(){
+    self = this;
+    data = $(this).text();
+  // add data into modal before show up
     $('#modal').on('show.bs.modal',function(){
-      $('input[name=list1]').attr({value: data1});
-      $('#btn1').click(function(){
-        data1 = $('input[name=list1]').val();
-        $('h2[name=list1]').text(data1);
-        $('#modal').modal('hide');
-      });
+      $('input[name=val]').val(data);
+      $('input[name=position]').val($(self).attr("place"));
     });
+    $('#modal').modal("show");
+  // click button to save data changed from modal  
+    $('#btn1').click(function(){
+      $(self).text($('input[name=val]').val());
+      $(self).attr("place",$('input[name=position]').val());
+      function move(elem, index, position){
+        var elem_chosen = $('.list' + index + '-item:nth-child(' + position + ')');
+        $(elem).insertBefore(elem_chosen);
+      }
+      move(self,$('input[name=list-item]').val(),$('input[name=position]').val());
+      $('#modal').modal('hide');
+    });
+  });
+}); 
 </script>
 </body>
 </html>
