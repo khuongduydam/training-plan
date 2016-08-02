@@ -10,7 +10,7 @@
 <body>
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" id="list1-item" data-place="1">
       <section class="panel well">
         <h2>List 1</h2>
         <ul>
@@ -20,7 +20,7 @@
         </ul>
       </section>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4" id="list2-item" data-place="2">
         <section class="panel well">
           <h2>List 2</h2>
           <ul>
@@ -30,7 +30,7 @@
           </ul>
         </section>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" id="list3-item" data-place="3">
         <section class="panel well">
           <h2>List 3</h2>
           <ul>
@@ -65,6 +65,25 @@
   </div>
 </div>
 
+<div class="modal fade" id="modal2">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Content</h4>
+      </div>
+      <div class="modal-body">
+        <label>Content</label>
+        <input type="text" name="val1" class="form-control"><br />
+        <label>Current Position</label>
+        <input type="text" name="position1" class="form-control" data-placeholder="Postition"><br />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="btn2">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
 $(function(){
   var self, data;
@@ -78,27 +97,40 @@ $(function(){
       $(elem).insertBefore(elem_chosen);
     }
   }
+  function moveList(list,position){
+    var list_chosen = $('h2').parent('.panel').parent('.col-md-4:nth-child('+ position +')');  
 
+    $(list).parent().parent().insertBefore(list_chosen);
+  }
    $('#modal').on('show.bs.modal',function(){
       $('input[name=val]').val(data);
       $('input[name=position]').val($(self).data("place"));
     });
-
-   $('#btn1').click(function(){
-      $(self).text($('input[name=val]').val());
-      $(self).data("place",$('input[name=position]').val());
-      move(self,$('input[name=list-item]').val(),$('input[name=position]').val());
-      $('#modal').modal('hide');
+   $('#modal2').on('show.bs.modal',function(){
+      $('input[name=val1]').val(data);
+      $('input[name=position1]').val($(self).data("place"));
     });
-  // click into every elements
-  $('h2,pre').click(function(){
+   $('#btn1').click(function(){
+    $(self).text($('input[name=val]').val());
+    $(self).data("place",$('input[name=position]').val());
+    move(self,$('input[name=list-item]').val(),$('input[name=position]').val());
+    $('#modal').modal('hide');
+    });
+   $('#btn2').click(function(){
+    $(self).text($('input[name=val1]').val());
+    $(self).data('place',$('input[name=position1]').val());
+    moveList(self,$('input[name=position1]').val());
+    $('#modal2').modal('hide');
+   });
+  $('pre').click(function(){
     self = this;
     data = $(this).text();
-  // add data into modal before show up
-   
-    $('#modal').modal("show");
-  // click button to save data changed from modal  
-    
+    $('#modal').modal("show"); 
+  });
+  $('h2').click(function(){
+    self = this;
+    data = $(this).text();
+    $('#modal2').modal("show"); 
   });
 }); 
 </script>
