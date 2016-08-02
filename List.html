@@ -14,9 +14,9 @@
       <section class="panel well">
         <h2>List 1</h2>
         <ul>
-          <pre place="1" class='list1-item'><li>Task 1</li></pre>
-          <pre place="2" class='list1-item'><li>Task 2</li></pre>
-          <pre place="3" class='list1-item'><li>Task 3</li></pre>
+          <pre data-place="1" class='list1-item'><li>Task 1</li></pre>
+          <pre data-place="2" class='list1-item'><li>Task 2</li></pre>
+          <pre data-place="3" class='list1-item'><li>Task 3</li></pre>
         </ul>
       </section>
       </div>
@@ -24,9 +24,9 @@
         <section class="panel well">
           <h2>List 2</h2>
           <ul>
-            <pre place="1" class="list2-item"><li>Task 4</li></pre>
-            <pre place="2" class="list2-item"><li>Task 5</li></pre>
-            <pre place="3" class="list2-item"><li>Task 6</li></pre>
+            <pre data-place="1" class="list2-item"><li>Task 4</li></pre>
+            <pre data-place="2" class="list2-item"><li>Task 5</li></pre>
+            <pre data-place="3" class="list2-item"><li>Task 6</li></pre>
           </ul>
         </section>
     </div>
@@ -34,9 +34,9 @@
         <section class="panel well">
           <h2>List 3</h2>
           <ul>
-            <pre place="1" class="list3-item"><li>Task 7</li></pre>
-            <pre place="2" class="list3-item"><li>Task 8</li></pre>
-            <pre place="3" class="list3-item"><li>Task 9</li></pre>
+            <pre data-place="1" class="list3-item"><li>Task 7</li></pre>
+            <pre data-place="2" class="list3-item"><li>Task 8</li></pre>
+            <pre data-place="3" class="list3-item"><li>Task 9</li></pre>
           </ul>
         </section>
     </div>
@@ -54,7 +54,7 @@
         <label>Content</label>
         <input type="text" name="val" class="form-control"><br />
         <label>Current Position</label>
-        <input type="text" name="position" class="form-control" placeholder="Postition"><br />
+        <input type="text" name="position" class="form-control" data-placeholder="Postition"><br />
         <label>List</label>
         <input type="text" name="list-item" class="form-control">
       </div>
@@ -68,27 +68,37 @@
 <script>
 $(function(){
   var self, data;
+  function move(elem, index, position){
+    var elem_chosen = $('.list' + index + '-item:nth-child(' + position + ')');
+    if(elem_chosen.length <= 0)  {
+      elem_chosen = $('.list' + index + '-item:nth-last-child(1)');
+      $(elem).insertAfter(elem_chosen);
+    }
+    else{
+      $(elem).insertBefore(elem_chosen);
+    }
+  }
+
+   $('#modal').on('show.bs.modal',function(){
+      $('input[name=val]').val(data);
+      $('input[name=position]').val($(self).data("place"));
+    });
+
+   $('#btn1').click(function(){
+      $(self).text($('input[name=val]').val());
+      $(self).data("place",$('input[name=position]').val());
+      move(self,$('input[name=list-item]').val(),$('input[name=position]').val());
+      $('#modal').modal('hide');
+    });
   // click into every elements
   $('h2,pre').click(function(){
     self = this;
     data = $(this).text();
   // add data into modal before show up
-    $('#modal').on('show.bs.modal',function(){
-      $('input[name=val]').val(data);
-      $('input[name=position]').val($(self).attr("place"));
-    });
+   
     $('#modal').modal("show");
   // click button to save data changed from modal  
-    $('#btn1').click(function(){
-      $(self).text($('input[name=val]').val());
-      $(self).attr("place",$('input[name=position]').val());
-      function move(elem, index, position){
-        var elem_chosen = $('.list' + index + '-item:nth-child(' + position + ')');
-        $(elem).insertBefore(elem_chosen);
-      }
-      move(self,$('input[name=list-item]').val(),$('input[name=position]').val());
-      $('#modal').modal('hide');
-    });
+    
   });
 }); 
 </script>
