@@ -14,9 +14,9 @@
       <section class="panel well">
         <h2>List 1</h2>
         <ul>
-          <pre class='list1-item'><li place="1">Task 1</li></pre>
-          <pre class='list1-item'><li place="2">Task 2</li></pre>
-          <pre class='list1-item'><li place="3">Task 3</li></pre>
+          <pre place="1" class='list1-item'><li>Task 1</li></pre>
+          <pre place="2" class='list1-item'><li>Task 2</li></pre>
+          <pre place="3" class='list1-item'><li>Task 3</li></pre>
         </ul>
       </section>
       </div>
@@ -24,9 +24,9 @@
         <section class="panel well">
           <h2>List 2</h2>
           <ul>
-            <pre class="list2-item"><li place="1">Task 4</li ></pre>
-            <pre class="list2-item"><li place="2">Task 5</li ></pre>
-            <pre class="list2-item"><li place="3">Task 6</li ></pre>
+            <pre place="1" class="list2-item"><li>Task 4</li></pre>
+            <pre place="2" class="list2-item"><li>Task 5</li></pre>
+            <pre place="3" class="list2-item"><li>Task 6</li></pre>
           </ul>
         </section>
     </div>
@@ -34,9 +34,9 @@
         <section class="panel well">
           <h2>List 3</h2>
           <ul>
-            <pre class="list3-item"><li place="1">Task 7</li></pre>
-            <pre class="list3-item"><li place="2">Task 8</li></pre>
-            <pre class="list3-item"><li place="3">Task 9</li></pre>
+            <pre place="1" class="list3-item"><li>Task 7</li></pre>
+            <pre place="2" class="list3-item"><li>Task 8</li></pre>
+            <pre place="3" class="list3-item"><li>Task 9</li></pre>
           </ul>
         </section>
     </div>
@@ -69,7 +69,7 @@
 $(function(){
   var self, data;
   // click into every elements
-  $('h2,li').click(function(){
+  $('h2,pre').click(function(){
     self = this;
     data = $(this).text();
   // add data into modal before show up
