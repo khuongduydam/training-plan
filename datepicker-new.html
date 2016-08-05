@@ -14,41 +14,41 @@
 <body>
 <div class="container">
   <div class="row">
-    <div class="col-sm-6" style="width:300px;"">
-      <div class="form-group">
-        <div class="input-group date" id="datetimepicker1">
-          <input type="text" class="form-control" />
-          <span class="input-group-addon">
-              <span class="glyphicon glyphicon-calendar"></span>
-          </span>
-        </div>
-      </div>
+    <div class="col-sm-6">
+      <label>Check in</label>
+      <input type="text" class="form-control" id="input1" style="width:250px;" readonly/>
     </div>
-    <div class="col-sm-6" style="width:300px;"">
-      <div class="form-group">
-        <div class="input-group date" id="datetimepicker2">
-          <input type="text" class="form-control" />
-          <span class="input-group-addon">
-              <span class="glyphicon glyphicon-calendar"></span>
-          </span>
-        </div>
-      </div>
+    <div class="col-sm-6">
+      <label>Check out</label>
+      <input type="text" class="form-control" id="input2" style="width:250px;" readonly/>
     </div>
   </div>
 </div>
 <script type="text/javascript">
   $(function () {
-    $("#datetimepicker1").datetimepicker({showTodayButton: true});
-    $("#datetimepicker2").datetimepicker({
-      useCurrent: false
+    //Khoi tao 2 datetimepicker
+    checkout = $('#input2').datetimepicker({
+      format: 'DD MM YYYY',
+      ignoreReadonly: true
     });
-    $("#datetimepicker1").on("dp.change",function(e){
-      $("#datetimepicker2").data("DateTimePicker").minDate(e.date);
-    });
-    $("#datetimepicker2").on("dp.change",function(e){
-      $("#datetimepicker1").data("DateTimePicker").maxDate(e.date);
-    });
+    checkin = $("#input1").datetimepicker({
+      minDate: new Date(),
+      ignoreReadonly: true,
+      format: 'DD MM YYYY'
+    //Khi thay doi ngay trong datetimepicker01 thi
+    //tang gia tri len 01 roi cong vao datetimepicker02
+    }).on("dp.change",function(){
+      input1 = $("#input1").data("DateTimePicker");
+      input2 = $("#input2").data("DateTimePicker");
+      // value1 = input1.date();
+      if(true)  {
+        newDate = new Date(input1.date());
+        newDate.setDate(newDate.getDate() + 1);
+        input2.minDate(newDate);
+      }
+      $('#input2')[0].focus();
   });
+});
 </script>
 </body>
 </html>
