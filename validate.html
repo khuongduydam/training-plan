@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Validate jquery</title>
+  <meta charset="utf-8">
+  <script src="jquery-1.11.1.js"></script>
+  <script src="jquery.validate.min.js"></script>
+  <script src="additional-methods.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <form action="get" id="my-form" class="form-group">
+      <input type="text" class="form-control center-block" name="input1" id="input1" style="width: 250px;"><br />
+      <input type="submit" value="finish" class="btn btn-danger center-block">
+    </form>
+    <script>
+    //for demo
+    jQuery.validator.setDefaults({
+      debug: true,
+      success: "valid"
+    });
+      //jquery validate 
+      $('#my-form').validate({
+        rules:{
+          input1:{
+            required: true,
+            minlength: 2
+          }
+        },
+        messages:{
+          input1: "please input something inside",
+          minlength: "too short"
+        }
+      });      
+    </script>
+  </body>
+  </html>
