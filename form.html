@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Builder</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="jquery.validate.js"></script>
+</head>
+<body>
+  <select name="option" id="option">
+    <option disabled selected value>Choose an option</option>
+    <option value="text">Text Box</option>
+    <option value="checkbox">Checkbox</option>
+    <option value="radio">Radio Button</option>
+  </select>
+  <input type="submit" value="Add">
+  <form id="myform"></form>
+</body>
+<script>
+  $(function(){
+    var elem = document.getElementById('option');
+    valueOption = elem.options[elem.selectedIndex].value;
+    $('#option').on('click',function(){
+      valueOption = $(this).val();
+    });
+    var i = 1;
+    //create an obj
+    a = {
+      rules:{
+      }
+    }
+    // add form
+    $('input').click(function(){
+      var name = 'input' + i
+      console.log(name)
+      if(valueOption === "text"){
+        $('form').append('<br /><br /><input type="text" name="'+name+'" placeholder="Input'+i+'" /><br><input type="submit" value="Validate!" />')
+        i++
+      }
+      else if(valueOption === "checkbox"){
+        $('form').append('<br /><label>Checkbox'+i+'</label><br /><input type="checkbox" name="'+name+'" value="'+i+'" /><br><input type="submit" value="Validate!" />')
+        i++
+      }
+      else if(valueOption === 'radio'){
+        $('form').append('<br /><label>Radio'+i+'</label><br /><input type="radio" name="'+name+'" value="'+i+'" /><br><input type="submit" value="Validate!" />')
+        i++
+      }
+      else{
+        alert('Wrong option selected')
+      } 
+      a.rules[name] = {required: true}; //set key: value
+      $('#myform').validate(a);
+      $('input[name='+name+']').rules("add",{required: true}) //validate each input
+    });
+  });
+</script>
+</html
