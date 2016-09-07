@@ -9,11 +9,12 @@
       a = [1,33,11,55,22,66,77,2,27,8,16]
       function sort(elem){
         for(var i=0;i<elem.length;i++){
-          for(var j=0;j<elem.length-1;j++){
-            if(elem[j]>elem[j+1]){
-              var temp = elem[j]
-              elem[j] = elem[j+1]
-              elem[j+1] = temp
+          for(var j=i+1;j<elem.length;j++){
+            if(elem[i]>elem[j]){
+              var temp = elem[i]
+              console.log(elem[i])
+              elem[i] = elem[j]
+              elem[j] = temp
             }
           }
         }
